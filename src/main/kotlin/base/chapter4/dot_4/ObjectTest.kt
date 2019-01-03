@@ -12,18 +12,20 @@ object Singleton {
 }
 
 //这种声明方式为 懒汉模式
+/*
 class SingletonLazy private constructor() {
 
     companion object {
-        val instance: SingletonLazy by lazy { SingletonLazy() }
+        val INSTANCE: SingletonLazy by lazy { SingletonLazy() }
     }
 
     fun test() {
         println("hello SingletonLazy")
     }
 }
+*/
 
 fun main(args: Array<String>) {
     Singleton.test()
-    SingletonLazy.instance.test()
+    //SingletonLazy.INSTANCE.test()
 }
