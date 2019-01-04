@@ -1,7 +1,6 @@
 package handbook.six
 
 import java.util.*
-import kotlin.jvm.functions.FunctionN
 
 
 /**
