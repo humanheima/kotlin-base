@@ -17,4 +17,33 @@ fun main(args: Array<String>) {
 
     println(sum1(3, 5))
     println(3.sum2(5))
+
+    val user =  user{
+
+        name = "Tony"
+        password = "1234567890"
+        address {
+
+            province = "Jiangsu"
+            city = "Suzhou"
+            street = "Renming Road"
+        }
+    }
+
+    println(user.addresses)
+}
+
+
+fun user(init: UserWrapper.() -> Unit):User {
+
+    val wrapper = UserWrapper()
+    wrapper.init()
+
+    val user = User()
+
+    user.name = wrapper.name
+    user.password = wrapper.password
+    user.addresses = wrapper.getAddress()
+
+    return user
 }
