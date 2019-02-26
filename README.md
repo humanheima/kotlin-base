@@ -6,3 +6,8 @@
 * Java的 `==` 操作符是比较引用值，但Kotlin 的 `==` 操作符是比较内容， `===` 才是比较引用值
 
 * E:\AndroidStudioProjects\kotlin-base\src\main\kotlin\handbook 该目录下是掘金小册的相关内容
+
+learncoroutine包下是协程相关知识。
+### 协程
+
+协程可以简化异步编程，可以顺序地表达程序，协程也提供了一种避免阻塞线程并用更廉价、更可控的操作替代线程阻塞的方法 – 协程挂起。

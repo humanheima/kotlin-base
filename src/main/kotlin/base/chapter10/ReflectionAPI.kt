@@ -1,6 +1,5 @@
 package base.chapter10
 
-import kotlin.reflect.full.memberProperties
 
 
 /**
@@ -14,7 +13,5 @@ fun main(args: Array<String>) {
     val person = Person("Alice", 29)
     val kClass = person.javaClass.kotlin
     println(kClass.simpleName)
-    kClass.memberProperties.forEach {
-        println(it.name)
-    }
+
 }
