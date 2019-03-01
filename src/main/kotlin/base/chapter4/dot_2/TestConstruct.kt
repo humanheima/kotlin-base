@@ -3,7 +3,12 @@ package base.chapter4.dot_2
 /**
  * 在主构造函数中如果不用修饰符修饰name的话，那么只能在声明属性和初始化块中使用name。
  */
+
+fun main(args: Array<String>) {
+
+}
 class TestConstruct(name: String) {
+
 
     val _name = name
 
@@ -15,3 +20,5 @@ class TestConstruct(name: String) {
         print(_name)
     }
 }
+
+
