@@ -3,14 +3,15 @@ package learncoroutine
 import kotlinx.coroutines.*
 
 
-fun main() = runBlocking {
-    repeat(100_000) { // 启动大量的协程
+/*fun main() = runBlocking<Unit> {
+    repeat(100_000) {
+        // 启动大量的协程
         launch {
             delay(1000L)
             print(".")
         }
     }
-}
+}*/
 
 private fun fun1() {
     GlobalScope.launch {
@@ -39,6 +40,20 @@ private fun fun2() {
     }
 }
 
+/**
+ * 等待一个作业
+ */
+private fun fun3() {
+    runBlocking {
+        val job = GlobalScope.launch {
+            delay(1000)
+            println("world!fun3!")
+        }
+        println("Hello,")
+        job.join()
+        println("fun3 end")
+    }
+}
 
 
 /**
@@ -65,15 +80,19 @@ private suspend fun doWorld() {
     println("world.")
 }
 
-/*fun main(args: Array<String>) {
+/*
+fun main(args: Array<String>) {
 
     //test0()
     //test1()
-    test2()
-}*/
+    fun3()
+}
+*/
 
 
-/*
+/**
+ * 作用域构建器
+ */
 fun main() = runBlocking {
     // this: CoroutineScope
     launch {
@@ -94,23 +113,7 @@ fun main() = runBlocking {
 
     println("Coroutine scope is over") // 这一行在内嵌 launch 执行完毕后才输出
 }
-*/
 
-
-/**
- * 等待一个作业
- */
-private fun test2() {
-    runBlocking {
-        val job = GlobalScope.launch {
-            delay(1000)
-            println("world!test2!")
-        }
-        println("Hello,")
-        job.join()
-        println("test2")
-    }
-}
 
 private fun test0() {
     GlobalScope.launch {
