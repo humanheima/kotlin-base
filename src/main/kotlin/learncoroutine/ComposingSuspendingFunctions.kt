@@ -103,7 +103,7 @@ suspend fun concurrentSum(): Int = coroutineScope {
  * 取消始终通过协程的层次结构来进行传递
  * 所有的子协程取消以后，父协程才会取消
  */
-fun main() = runBlocking<Unit> {
+fun main5() = runBlocking<Unit> {
     try {
         failedConcurrentSum()
     } catch (e: ArithmeticException) {

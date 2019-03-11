@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
  * 那么它是不能被取消的，就如如下示例代码所示：
  * 输出0，1，2以后并不会退出，输出3，4以后才可以结束。
  */
-fun main0() = runBlocking {
+fun main16() = runBlocking {
     val startTime = System.currentTimeMillis()
     val job = launch(Dispatchers.Default) {
         var nextPrintTime = startTime
@@ -32,7 +32,7 @@ fun main0() = runBlocking {
 /**
  * 使计算代码可取消
  */
-fun main1() = runBlocking {
+fun main17() = runBlocking {
     val startTime = System.currentTimeMillis()
     val job = launch(Dispatchers.Default) {
         var nextPrintTime = startTime
@@ -54,7 +54,7 @@ fun main1() = runBlocking {
 /**
  * 在 finally 中释放资源
  */
-fun main2() = runBlocking {
+fun main18() = runBlocking {
     val job = launch {
         try {
             repeat(1000) { i ->
@@ -74,7 +74,7 @@ fun main2() = runBlocking {
 /**
  * 运行不能取消的代码块
  */
-fun main3() = runBlocking {
+fun main19() = runBlocking {
     val job = launch {
         try {
             repeat(1000) { i ->
@@ -98,7 +98,7 @@ fun main3() = runBlocking {
 /**
  * 超时 会抛出异常 TimeoutCancellationException
  */
-fun main4() = runBlocking {
+fun main20() = runBlocking {
     withTimeout(1300L) {
         repeat(1000) { i ->
             println("I'm sleeping $i ...")
@@ -106,7 +106,7 @@ fun main4() = runBlocking {
         }
     }
 }
-fun main() = runBlocking {
+fun main21() = runBlocking {
     val result = withTimeoutOrNull(1300L) {
         repeat(1000) { i ->
             println("I'm sleeping $i ...")

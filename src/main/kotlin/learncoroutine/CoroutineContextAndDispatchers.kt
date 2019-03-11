@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
  */
 fun log(msg: String) = println("[${Thread.currentThread().name}] $msg")
 
-fun main5() = runBlocking<Unit> {
+fun main6() = runBlocking<Unit> {
     //sampleStart
     launch {
         // context of the parent, main runBlocking coroutine
@@ -27,7 +27,7 @@ fun main5() = runBlocking<Unit> {
     }
 }
 
-fun main6() = runBlocking<Unit> {
+fun main7() = runBlocking<Unit> {
     launch(Dispatchers.Unconfined) {
         // 非受限的--将和主线程一起工作
         println("Unconfined      : I'm working in thread ${Thread.currentThread().name}")
@@ -48,7 +48,7 @@ fun main6() = runBlocking<Unit> {
  * 在jvm option 里面加入
  * -Dkotlinx.coroutines.debug
  */
-fun main7() = runBlocking<Unit> {
+fun main8() = runBlocking<Unit> {
     val a = async {
         log("I'm computing a piece of the answer")
         6
@@ -63,7 +63,7 @@ fun main7() = runBlocking<Unit> {
 /**
  * 在线程之间跳转
  */
-fun main8() {
+fun main9() {
     newSingleThreadContext("Ctx1").use { ctx1 ->
         newSingleThreadContext("Ctx2").use { ctx2 ->
             runBlocking(ctx1) {
@@ -80,14 +80,14 @@ fun main8() {
 /**
  * 上下文中的任务
  */
-fun main9() = runBlocking<Unit> {
+fun main10() = runBlocking<Unit> {
     println("My job is ${coroutineContext[Job]}")
 }
 
 /**
  * 子协程
  */
-fun main10() = runBlocking<Unit> {
+fun main11() = runBlocking<Unit> {
     // launch a coroutine to process some kind of incoming request
     val request = launch {
         // it spawns two other jobs, one with GlobalScope
@@ -115,7 +115,7 @@ fun main10() = runBlocking<Unit> {
  * 父协程的责任
  * 一个父协程总是等待所有的子协程结束。父协程不必显式的跟踪所有启动的子协程，也不必在最后调用Job.join()等待所有的子协程结束。
  */
-fun main11() = runBlocking<Unit> {
+fun main12() = runBlocking<Unit> {
     // launch a coroutine to process some kind of incoming request
     val request = launch {
         repeat(3) { i ->
@@ -134,7 +134,7 @@ fun main11() = runBlocking<Unit> {
 /**
  * 命名协程以用于调试
  */
-fun main12() = runBlocking(CoroutineName("main")) {
+fun main13() = runBlocking(CoroutineName("main")) {
     log("Started main coroutine")
     // run two background value computations
     val v1 = async(CoroutineName("v1coroutine")) {
@@ -154,7 +154,7 @@ fun main12() = runBlocking(CoroutineName("main")) {
  * 组合上下文元素
  * 同时指定调度器和名称
  */
-fun main13() = runBlocking<Unit> {
+fun main14() = runBlocking<Unit> {
     launch(Dispatchers.Default + CoroutineName("test")) {
         println("I'm working in thread ${Thread.currentThread().name}")
     }
@@ -165,7 +165,7 @@ fun main13() = runBlocking<Unit> {
  */
 val threadLocal = ThreadLocal<String?>() // declare thread-local variable
 
-fun main() = runBlocking<Unit> {
+fun main15() = runBlocking<Unit> {
     threadLocal.set("main")
     println("Pre-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
     val job = launch(Dispatchers.Default + threadLocal.asContextElement(value = "launch")) {

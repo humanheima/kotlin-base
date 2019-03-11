@@ -93,7 +93,7 @@ fun main(args: Array<String>) {
 /**
  * 作用域构建器
  */
-fun main() = runBlocking {
+fun main29() = runBlocking {
     // this: CoroutineScope
     launch {
         delay(200L)
