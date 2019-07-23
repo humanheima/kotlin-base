@@ -5,40 +5,6 @@ import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.selects.select
 import kotlin.random.Random
 
-/**
- * 这一节完全没看懂
- */
-suspend fun selectAorB(a: ReceiveChannel<String>, b: ReceiveChannel<String>): String =
-    select<String> {
-        a.onReceiveOrNull { value ->
-            if (value == null)
-                "Channel 'a' is closed"
-            else
-                "a -> '$value'"
-        }
-        b.onReceiveOrNull { value ->
-            if (value == null)
-                "Channel 'b' is closed"
-            else
-                "b -> '$value'"
-        }
-    }
-
-fun main31() = runBlocking<Unit> {
-    val a = produce<String> {
-        repeat(4) { send("Hello $it") }
-    }
-    val b = produce<String> {
-        repeat(4) { send("World $it") }
-    }
-    repeat(8) {
-        // print first eight results
-        println(selectAorB(a, b))
-    }
-    coroutineContext.cancelChildren()
-}
-
-
 fun CoroutineScope.fizz() = produce<String> {
     while (true) { // sends "Fizz" every 300 ms
         delay(300)
@@ -70,7 +36,7 @@ suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<St
     }
 }
 
-fun main30() = runBlocking<Unit> {
+private fun main1() = runBlocking<Unit> {
     val fizz = fizz()
     val buzz = buzz()
     repeat(7) {
@@ -79,6 +45,35 @@ fun main30() = runBlocking<Unit> {
     coroutineContext.cancelChildren() // cancel fizz & buzz coroutines
 }
 
+suspend fun selectAorB(a: ReceiveChannel<String>, b: ReceiveChannel<String>): String =
+    select<String> {
+        a.onReceiveOrNull { value ->
+            if (value == null)
+                "Channel 'a' is closed"
+            else
+                "a -> '$value'"
+        }
+        b.onReceiveOrNull { value ->
+            if (value == null)
+                "Channel 'b' is closed"
+            else
+                "b -> '$value'"
+        }
+    }
+
+private fun main2() = runBlocking<Unit> {
+    val a = produce<String> {
+        repeat(4) { send("Hello $it") }
+    }
+    val b = produce<String> {
+        repeat(4) { send("World $it") }
+    }
+    repeat(8) {
+        // print first eight results
+        println(selectAorB(a, b))
+    }
+    coroutineContext.cancelChildren()
+}
 
 /**
  * 选择发送
@@ -94,7 +89,7 @@ fun CoroutineScope.produceNumbers(side: SendChannel<Int>) = produce<Int> {
     }
 }
 
-fun main32() = runBlocking<Unit> {
+private fun main3() = runBlocking<Unit> {
     //sampleStart
     val side = Channel<Int>() // allocate side channel
     launch {
@@ -123,7 +118,7 @@ fun CoroutineScope.asyncStringsList(): List<Deferred<String>> {
 /**
  * 选择延迟值
  */
-fun main33() = runBlocking<Unit> {
+fun main() = runBlocking<Unit> {
     val list = asyncStringsList()
     val result = select<String> {
         list.withIndex().forEach { (index, deferred) ->
@@ -164,7 +159,7 @@ fun CoroutineScope.asyncString(str: String, time: Long) = async {
     str
 }
 
-fun main() = runBlocking<Unit> {
+fun mainx() = runBlocking<Unit> {
     val chan = Channel<Deferred<String>>() // the channel for test
     launch {
         // launch printing coroutine

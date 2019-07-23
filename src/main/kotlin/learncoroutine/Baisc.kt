@@ -2,7 +2,14 @@ package learncoroutine
 
 import kotlinx.coroutines.*
 
-
+/**
+ * Crete by dumingwei on 2019-07-20
+ * Desc: 协程基础
+ *
+ */
+fun mainBasic() {
+    fun6()
+}
 /*fun main() = runBlocking<Unit> {
     repeat(100_000) {
         // 启动大量的协程
@@ -23,7 +30,10 @@ private fun fun1() {
     /**
      *阻塞主线程 2 秒钟来保证 JVM 存活,这里为什么要等待2秒呢，因为如果不等待2秒，主线程就结束了，jvm也就停止了，
      * 那么协程中的代码就无法运行了。
+     * 1.让主线程睡眠500ms，则协程中的`World!`无法输出。
+     * 2.让协程阻塞3000ms，则协程中的`World!`无法输出。
      */
+    //Thread.sleep(500L)
     Thread.sleep(2000L)
 }
 
@@ -60,40 +70,31 @@ private fun fun3() {
  * 这是一个外部协程
  * 外部协程（示例中的 runBlocking）直到在其作用域中启动的所有协程都执行完毕后才会结束。
  */
-/*fun main() = runBlocking {
-    */
-/**
- * 这是一个内部协程
- *//*
+private fun fun4() = runBlocking {
+
+    /**
+     * 这是一个内部协程
+     */
     launch {
         doWorld()
     }
     println("Hello,")
-    delay(2000)
-}*/
+    delay(2000L)
+}
 
 /**
  * 挂起函数
  */
 private suspend fun doWorld() {
-    delay(1000)
+    delay(1000L)
     println("world.")
 }
-
-/*
-fun main(args: Array<String>) {
-
-    //test0()
-    //test1()
-    fun3()
-}
-*/
 
 
 /**
  * 作用域构建器
  */
-fun main29() = runBlocking {
+private fun fun5() = runBlocking {
     // this: CoroutineScope
     launch {
         delay(200L)
@@ -115,12 +116,13 @@ fun main29() = runBlocking {
 }
 
 
-private fun test0() {
+private fun fun6() = runBlocking {
     GlobalScope.launch {
-        delay(1000)
-        println("world!")
+        repeat(1000) { i ->
+            println("I am sleeping $i")
+            delay(500L)
+        }
     }
-    println("Hello,")
-    Thread.sleep(2000)
+    delay(1300L)
 }
 

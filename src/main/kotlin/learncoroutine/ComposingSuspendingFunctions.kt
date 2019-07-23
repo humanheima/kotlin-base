@@ -10,7 +10,7 @@ import kotlin.system.measureTimeMillis
 /**
  * 顺序执行挂起函数
  */
-fun main0(args: Array<String>) = runBlocking {
+private fun main1(args: Array<String>) = runBlocking {
 
     val time = measureTimeMillis {
         //默认挂起函数会顺序执行
@@ -22,9 +22,9 @@ fun main0(args: Array<String>) = runBlocking {
 }
 
 /**
- * 并行执行挂起函数
+ * 使用 async 并发
  */
-fun main1(args: Array<String>) = runBlocking {
+private fun main2(args: Array<String>) = runBlocking {
 
     val time = measureTimeMillis {
         //默认挂起函数会顺序执行
@@ -39,13 +39,17 @@ fun main1(args: Array<String>) = runBlocking {
  * 惰性启动的async
  * 当只有调用start或者调用返回的Deferred对象的await方法才会启动协程
  */
-fun main2(args: Array<String>) = runBlocking {
+private fun main3(args: Array<String>) = runBlocking {
 
     val time = measureTimeMillis {
         //默认挂起函数会顺序执行
         val one = async(start = CoroutineStart.LAZY) { doSomethingUsefulOne() }
         val two = async(start = CoroutineStart.LAZY) { doSomethingUsefulTwo() }
         //试着不调用start方法，看看耗时
+        /**
+         * 注意，如果我们在 println 中调用 await 并在个别协程上省略 start，
+         * 则我们会得到顺序的行为作为 await 来启动协程的执行并且等待执行结束，这不是懒序列的预期用例。
+         */
         one.start()
         two.start()
         println("The answer is ${one.await() + two.await()}")
@@ -65,7 +69,7 @@ fun main2(args: Array<String>) = runBlocking {
  *
  */
 
-fun mainm3() {
+private fun main4() {
     val time = measureTimeMillis {
         // we can initiate async actions outside of a coroutine
         val one = somethingUsefulOneAsync()
@@ -82,7 +86,7 @@ fun mainm3() {
 /**
  * 使用 async 的结构化并发
  */
-fun mainm4() = runBlocking {
+private fun main5() = runBlocking {
     val time = measureTimeMillis {
         println("The answer is ${concurrentSum()}")
     }
@@ -103,7 +107,7 @@ suspend fun concurrentSum(): Int = coroutineScope {
  * 取消始终通过协程的层次结构来进行传递
  * 所有的子协程取消以后，父协程才会取消
  */
-fun main5() = runBlocking<Unit> {
+private fun main6() = runBlocking<Unit> {
     try {
         failedConcurrentSum()
     } catch (e: ArithmeticException) {

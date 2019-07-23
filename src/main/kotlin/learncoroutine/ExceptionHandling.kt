@@ -3,7 +3,12 @@ package learncoroutine
 import kotlinx.coroutines.*
 import java.io.IOException
 
-fun main22() = runBlocking {
+/**
+ * Crete by dumingwei on 2019-07-22
+ * Desc: 异常处理与监督
+ *
+ */
+private fun main1() = runBlocking {
     val job = GlobalScope.launch {
         println("Throwing exception from launch")
         throw IndexOutOfBoundsException() // Will be printed to the console by Thread.defaultUncaughtExceptionHandler
@@ -22,7 +27,7 @@ fun main22() = runBlocking {
     }
 }
 
-fun main23() = runBlocking {
+private fun main2() = runBlocking {
     val handler = CoroutineExceptionHandler { _, exception ->
         println("Caught $exception")
     }
@@ -36,7 +41,7 @@ fun main23() = runBlocking {
     joinAll(job, deferred)
 }
 
-fun main24() = runBlocking {
+private fun main3() = runBlocking {
     val job = launch {
         val child = launch {
             try {
@@ -59,7 +64,8 @@ fun main24() = runBlocking {
  * 如果协程遇到了除了CancellationException之外的异常，那么协程会被取消。
  * 父协程会等待所有的子协程结束后处理该异常。
  */
-fun main25() = runBlocking {
+private fun main4() = runBlocking {
+    //sampleStart
     val handler = CoroutineExceptionHandler { _, exception ->
         println("Caught $exception")
     }
@@ -89,9 +95,9 @@ fun main25() = runBlocking {
 /**
  * 异常聚合
  */
-fun main26() = runBlocking {
+private fun main5() = runBlocking {
     val handler = CoroutineExceptionHandler { _, exception ->
-        println("Caught $exception with suppressed ${exception.suppressed.contentToString()}")
+        println("Caught $exception with suppressed ${exception.suppressed?.contentToString()}")
     }
     val job = GlobalScope.launch(handler) {
         launch {
@@ -113,11 +119,11 @@ fun main26() = runBlocking {
 /**
  * 监督任务
  */
-fun main27() = runBlocking {
+private fun main6() = runBlocking {
     val supervisor = SupervisorJob()
     with(CoroutineScope(coroutineContext + supervisor)) {
         // launch the first child -- its exception is ignored for this example (don't do this in practice!)
-        val firstChild = launch(CoroutineExceptionHandler { _, _ ->  }) {
+        val firstChild = launch(CoroutineExceptionHandler { _, _ -> }) {
             println("First child is failing")
             throw AssertionError("First child is cancelled")
         }
@@ -141,7 +147,7 @@ fun main27() = runBlocking {
     }
 }
 
-fun main28() = runBlocking {
+private fun main7() = runBlocking {
     try {
         supervisorScope {
             val child = launch {
@@ -157,12 +163,12 @@ fun main28() = runBlocking {
             println("Throwing exception from scope")
             throw AssertionError()
         }
-    } catch(e: AssertionError) {
+    } catch (e: AssertionError) {
         println("Caught assertion error")
     }
 }
 
-fun main() = runBlocking {
+private fun main8() = runBlocking {
     val handler = CoroutineExceptionHandler { _, exception ->
         println("Caught $exception")
     }
