@@ -3,17 +3,11 @@ package base
 
 fun main(args: Array<String>) {
 
-    val testProtected: TestProtected = TestProtected()
-    //val method = testProtected::class.java.getDeclaredMethod("onMessagEvent")
-    val method = testProtected.javaClass.getDeclaredMethod("onMessagEvent")
-
-    println(method.toString())
+    val bean = TestProtected("hello")
 }
 
-class TestProtected {
+class TestProtected(name: String) {
 
-    protected fun onMessagEvent() {
 
-        print("hello world")
-    }
 }
+

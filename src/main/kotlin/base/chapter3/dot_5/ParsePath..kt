@@ -4,17 +4,20 @@ package base.chapter3.dot_5
  * Created by dumingwei on 2017/12/22 0022.
  */
 fun main(args: Array<String>) {
-    println("12.345-6.A".split(".","-"))
+    println("12.345-6.A".split(".", "-"))
+    println("12.345-6.A".split("\\.|-".toRegex()))
     parsePathRegular("/Users/yole/kotlin-book/chapter.adoc")
+
+    //parsePath("/Users/yole/kotlin-book/chapter.adoc")
 }
 
 fun parsePath(path: String) {
-
     val directory = path.substringBeforeLast("/")
     val fullName = path.substringAfterLast("/")
     val fileName = fullName.substringBeforeLast(".")
     val ext = fullName.substringAfterLast(".")
     println("Dir:$directory")
+    println("fullName:$fullName")
     println("name:$fileName")
     println("ext:$ext")
 }

@@ -30,5 +30,4 @@ fun main(args: Array<String>) {
     button.showOff()
     button.setFocus(true)
     button.click()
-    buildString {  }
 }
