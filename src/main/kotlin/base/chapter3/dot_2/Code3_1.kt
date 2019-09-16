@@ -11,7 +11,8 @@ import java.lang.StringBuilder
  * Created by dumingwei on 2017/12/22 0022.
  */
 
-const val a=1
+const val a = 1
+
 fun main(args: Array<String>) {
     val list = listOf(1, 2, 3)
     println(joinToString(list, ";", "(", ")"))
@@ -26,7 +27,12 @@ fun main(args: Array<String>) {
     println(joinToStringWithDefaultArgs(list, separator = ";", prefix = "(", postfix = ")"))
 }
 
-fun <T> joinToString(collection: Collection<T>, separator: String, prefix: String, postfix: String): String {
+fun <T> joinToString(
+    collection: Collection<T>,
+    separator: String,
+    prefix: String,
+    postfix: String
+): String {
     val result = StringBuilder(prefix)
     for ((index, element) in collection.withIndex()) {
         if (index > 0) result.append(separator)
@@ -40,8 +46,10 @@ fun <T> joinToString(collection: Collection<T>, separator: String, prefix: Strin
  * 带默认参数的方法
  */
 @JvmOverloads
-fun <T> joinToStringWithDefaultArgs(collection: Collection<T>, separator: String = ", ", prefix: String = "",
-                                    postfix: String = ""): String {
+fun <T> joinToStringWithDefaultArgs(
+    collection: Collection<T>, separator: String = ", ", prefix: String = "",
+    postfix: String = ""
+): String {
     val result = StringBuilder(prefix)
     for ((index, element) in collection.withIndex()) {
         if (index > 0) result.append(separator)

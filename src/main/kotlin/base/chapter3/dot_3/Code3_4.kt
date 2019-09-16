@@ -4,7 +4,11 @@ package base.chapter3.dot_3
  * Created by dumingwei on 2017/12/22 0022.
  */
 @JvmOverloads
-fun <T> Collection<T>.joinToString(separator: String = ",", prefix: String = "", postfix: String = ""): String {
+fun <T> Collection<T>.joinToString(
+    separator: String = ",",
+    prefix: String = "",
+    postfix: String = ""
+): String {
     val result = StringBuilder(prefix)
     for ((index, element) in this.withIndex()) {
         if (index > 0) result.append(separator)
@@ -14,7 +18,7 @@ fun <T> Collection<T>.joinToString(separator: String = ",", prefix: String = "",
     return result.toString()
 }
 
-fun main(args: Array<String>) {
+fun main() {
 
     val list = listOf(1, 2, 3)
     println(list.joinToString(separator = ";", prefix = "(", postfix = ")"))

@@ -2,16 +2,13 @@ package base.chapter3.dot_6
 
 /**
  * Created by dumingwei on 2017/12/22 0022.
- */
-
-/**
  * 在局部函数中访问外层函数的参数
  */
 
 fun saveUser2(user: User) {
     fun validate(value: String, fieldName: String) {
         if (value.isEmpty()) {
-            throw IllegalArgumentException("Can't save user ${user.id}:$fieldName")
+            throw IllegalArgumentException("Can't save user ${user.id}: empty $fieldName")
         }
     }
     validate(user.name, "Name")

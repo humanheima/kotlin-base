@@ -17,8 +17,8 @@ class Button : View() {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
 
-    val view:View = Button ()
+    val view: View = Button()
     view.click()
 }

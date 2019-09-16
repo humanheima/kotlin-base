@@ -4,8 +4,10 @@ package base.chapter3.dot_5
  * Created by dumingwei on 2017/12/22 0022.
  */
 fun main(args: Array<String>) {
+    println("""${'$'}99""")
     println("12.345-6.A".split(".", "-"))
     println("12.345-6.A".split("\\.|-".toRegex()))
+    println("12.345-6.A".split("[.\\-]".toRegex()))
     parsePathRegular("/Users/yole/kotlin-book/chapter.adoc")
 
     //parsePath("/Users/yole/kotlin-book/chapter.adoc")
