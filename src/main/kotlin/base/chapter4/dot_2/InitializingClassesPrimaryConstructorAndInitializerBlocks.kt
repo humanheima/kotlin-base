@@ -11,13 +11,10 @@ class TwitterUser(nickname: String, val id: Int) : User(nickname) {
     fun getInfo() = "nickname=$nickname,id=$id"
 }
 
-class User1 constructor(nickname: String) {
+class User1 constructor(_nickname: String) {
 
-    val nickname: String
+    val nickname: String = _nickname
 
-    init {
-        this.nickname = nickname
-    }
 }
 
 class User2 constructor(nickname: String) {

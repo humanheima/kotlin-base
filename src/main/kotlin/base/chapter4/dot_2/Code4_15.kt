@@ -6,7 +6,7 @@ package base.chapter4.dot_2
 class User5(val name: String) {
 
     var address: String = "unspecified"
-        set(value: String) {
+        set(value) {
             println("""
                 1Address was changed for $name:
                 "$field" -> "$value".""".trimIndent())

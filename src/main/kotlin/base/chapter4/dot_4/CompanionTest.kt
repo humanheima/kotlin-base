@@ -7,29 +7,37 @@ package base.chapter4.dot_4
 data class Person1(val name: String) {
 
     companion object {
+        @JvmStatic
         fun fromJson(jsonText: String): Person1 = Person1("hello")
     }
 
 }
 
-/**
- * 在伴生对象中实现接口
- */
+
 interface Factory<T> {
     fun fromJson(jsonText: String): T
 }
 
 data class Person2(val name: String) {
 
+    /**
+     * 在伴生对象中实现接口
+     */
     companion object : Factory<Person2> {
 
-        override fun fromJson(jsonText: String): Person2 = Person2("factory")
+        override fun fromJson(jsonText: String) = Person2(jsonText)
     }
 
 }
 
-fun main(args: Array<String>) {
-    println(Person1.fromJson("Alice"))
-    println(Person2.fromJson("hhah"))
+fun <T> loadFromJSON(factory: Factory<T>, jsonText: String): T {
+
+    return factory.fromJson(jsonText)
+}
+
+fun main() {
+    println(loadFromJSON(Person2, "hello"))
+    //println(Person2.fromJson("Alice"))
+    //println(Person2.fromJson("hhah"))
 }
 

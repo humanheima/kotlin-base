@@ -2,6 +2,7 @@ package base.chapter4.dot_2
 
 /**
  * Created by dumingwei on 2017/12/23 0023.
+ * Desc: 修改访问器的可见性
  */
 
 class LengthCounter {
