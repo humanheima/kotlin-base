@@ -13,6 +13,7 @@ fun main(args: Array<String>) {
             Book("Good Omens", listOf("Terry Pratchett",
                     "Neil Gaiman")))
     println(books.flatMap { it.authors }.toSet())
+
     println(listOf(books).flatten())
 
 }
