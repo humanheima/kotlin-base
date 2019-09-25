@@ -26,7 +26,7 @@ class Person6 {
     val company: String by _attributes
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val p = Person5()
     val data = mapOf(Pair("name", "Dmitry"), Pair("company", "JetBrains"))
     for ((attrName, value) in data)

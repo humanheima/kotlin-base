@@ -3,9 +3,7 @@ package base.chapter7.dot_1
 /**
  * Created by dumingwei on 2018/1/3 0003.
  */
-data class Point(val x: Int, val y: Int){
-
-}
+data class Point(val x: Int, val y: Int)
 
 /**
  * 定义一个plus运算符

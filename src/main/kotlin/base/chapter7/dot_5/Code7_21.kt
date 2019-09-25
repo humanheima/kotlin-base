@@ -7,8 +7,10 @@ import java.beans.PropertyChangeSupport
  * Created by dumingwei on 2018/1/5 0005.
  * 通过辅助类来实现属性变化的通知
  */
-class ObservableProperty(val propName: String, var propValue: Int,
-                         val changeSupport: PropertyChangeSupport) {
+class ObservableProperty(
+    val propName: String, var propValue: Int,
+    val changeSupport: PropertyChangeSupport
+) {
     fun getValue(): Int = propValue
     fun setValue(newValue: Int) {
         val oldValue = propValue
@@ -17,16 +19,17 @@ class ObservableProperty(val propName: String, var propValue: Int,
     }
 }
 
-class Person3(val name: String, age: Int, salary: Int
+class Person3(
+    val name: String, age: Int, salary: Int
 ) : PropertyChangeAware() {
 
-    val _age = ObservableProperty("age", age, changeSupport)
+    private val _age = ObservableProperty("age", age, changeSupport)
     var age: Int
         get() = _age.getValue()
         set(value) {
             _age.setValue(value)
         }
-    val _salary = ObservableProperty("salary", salary, changeSupport)
+    private val _salary = ObservableProperty("salary", salary, changeSupport)
     var salary: Int
         get() = _salary.getValue()
         set(value) {
@@ -34,13 +37,15 @@ class Person3(val name: String, age: Int, salary: Int
         }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val p = Person3("Dmitry", 34, 2000)
     p.addPropertyChangeListener(
-            PropertyChangeListener { event ->
-                println("Property ${event.propertyName} changed " +
-                        "from ${event.oldValue} to ${event.newValue}")
-            }
+        PropertyChangeListener { event ->
+            println(
+                "Property ${event.propertyName} changed " +
+                        "from ${event.oldValue} to ${event.newValue}"
+            )
+        }
     )
     p.age = 35
     p.salary = 2100

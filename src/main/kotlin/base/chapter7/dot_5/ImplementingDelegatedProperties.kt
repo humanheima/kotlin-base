@@ -35,12 +35,17 @@ class Person2(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
         }
 }
 
-fun main(args: Array<String>) {
+/**
+ * 我们注意到setter中有很多重复的代码逻辑
+ */
+fun main() {
     val p = Person2("Dmitry", 34, 2000)
     p.addPropertyChangeListener(PropertyChangeListener { event ->
-        println("Property ${event.propertyName} changed " +
-                "from ${event.oldValue} to ${event.newValue}")
+        println(
+            "Property ${event.propertyName} changed " +
+                    "from ${event.oldValue} to ${event.newValue}"
+        )
     })
-    p.age=35
-    p.salary=21000
+    p.age = 35
+    p.salary = 21000
 }

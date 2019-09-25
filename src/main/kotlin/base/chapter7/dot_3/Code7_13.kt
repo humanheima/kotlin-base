@@ -18,7 +18,7 @@ operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> =
         }
 
 fun main(args: Array<String>) {
-    val newYear = LocalDate.ofYearDay(2017, 1)
+    val newYear = LocalDate.ofYearDay(2019, 1)
     val daysOff = newYear.minusDays(1)..newYear
     for (dayOff in daysOff)
         println(dayOff)

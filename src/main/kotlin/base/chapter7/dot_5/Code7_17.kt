@@ -24,7 +24,7 @@ class Person(val name: String) {
         }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val p = Person("Alice")
     p.emails
     p.emails

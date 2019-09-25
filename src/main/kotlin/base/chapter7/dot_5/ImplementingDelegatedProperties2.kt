@@ -8,17 +8,19 @@ import kotlin.reflect.KProperty
  * Created by dumingwei on 2018/1/5 0005.
  */
 
-class Person4(val name: String, age: Int, salary: Int
+class Person4(
+    val name: String, age: Int, salary: Int
 ) : PropertyChangeAware() {
 
     var age: Int by ObservableProperty1(age, changeSupport)
     var salary: Int by ObservableProperty1(salary, changeSupport)
 }
 
-class ObservableProperty1(var propValue: Int, val changeSupport:
-PropertyChangeSupport) {
+class ObservableProperty1(var propValue: Int, val changeSupport: PropertyChangeSupport) {
 
+    //使用opera标记getValue和setValue方法
     operator fun getValue(p: Person4, prop: KProperty<*>): Int = propValue
+
     operator fun setValue(p: Person4, prop: KProperty<*>, newValue: Int) {
         val oldValue = propValue
         propValue = newValue
@@ -26,14 +28,18 @@ PropertyChangeSupport) {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val p = Person4("Dmitry", 34, 2000)
     p.addPropertyChangeListener(
-            PropertyChangeListener { event ->
-                println("Property ${event.propertyName} changed " +
-                        "from ${event.oldValue} to ${event.newValue}")
-            }
+        PropertyChangeListener { event ->
+            println(
+                "Property ${event.propertyName} changed " +
+                        "from ${event.oldValue} to ${event.newValue}"
+            )
+        }
     )
+    println("${p.age}")
+    println("${p.salary}")
     p.age = 35
     p.salary = 2100
 }
