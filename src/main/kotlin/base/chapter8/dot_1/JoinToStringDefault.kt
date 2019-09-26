@@ -34,14 +34,17 @@ fun <T> Collection<T>.joinToString1(
     return result.toString()
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val letters = listOf("Alpha", "Beta")
+
     println(letters.joinToString())
     println(letters.joinToString { it.toLowerCase() })
     println(letters.joinToString(separator = "!", postfix = "!",
             transform = { it.toUpperCase() }))
+
     println(letters.joinToString1())
     println(letters.joinToString1 { it.toLowerCase() })
     println(letters.joinToString1(separator = "!", postfix = "!",
             transform = { it.toUpperCase() }))
+
 }

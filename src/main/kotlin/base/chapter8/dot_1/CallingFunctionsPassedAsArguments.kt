@@ -22,10 +22,7 @@ fun processTheAnswer(f: (Int) -> Int) {
     println(f(42))
 }
 
-fun main(args: Array<String>) {
-    //下面三种调用方式
-    twoAndThree({ a, b -> a + b })
-    twoAndThree() { a, b -> a * b }
+fun main() {
     twoAndThree { a, b -> a - b }
 
     println("ab1c".filter { it in 'a'..'z' })

@@ -25,7 +25,7 @@ class ContactListFilters {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val contacts = listOf(Person("Dmitry", "Jemerov", "123-4567"),
             Person("Svetlana", "Isakova", null))
     val contactListFilters = ContactListFilters()

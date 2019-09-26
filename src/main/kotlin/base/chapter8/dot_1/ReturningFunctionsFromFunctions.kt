@@ -9,8 +9,7 @@ enum class Delivery {
 
 class Order(val itemCount: Int)
 
-fun getShippingCostCalculator(
-        delivery: Delivery): (Order) -> Double {
+fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
     if (delivery == Delivery.EXPEDITED)
         return { order: Order -> 6 + 2.1 * order.itemCount }
     return { order -> 1.2 * order.itemCount }

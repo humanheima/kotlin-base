@@ -9,12 +9,13 @@ import kotlin.concurrent.withLock
 /**
  * Created by dumingwei on 2018/1/7 0007.
  */
-val l:Lock=ReentrantLock()
+val l: Lock = ReentrantLock()
 
-fun readFirstLineFromFile(path:String):String{
-    BufferedReader(FileReader(path)).use { br->return br.readLine() }
+fun readFirstLineFromFile(path: String): String {
+
+    BufferedReader(FileReader(path)).use { br: BufferedReader -> return br.readLine() }
 }
 
 fun main(args: Array<String>) {
-    l.withLock {  }
+    l.withLock { }
 }
