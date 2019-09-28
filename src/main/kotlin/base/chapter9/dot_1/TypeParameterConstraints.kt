@@ -5,6 +5,7 @@ package base.chapter9.dot_1
  */
 fun <T : Comparable<T>> max(first: T, second: T): T {
 
+    //实现了Comparable接口的类，可以直接用运算符进行比较大小
     return if (first > second) first else second
 }
 
@@ -18,7 +19,8 @@ fun <T> ensureTrailingPeriod(seq: T) where T : CharSequence, T : Appendable {
 }
 
 fun main(args: Array<String>) {
-    println(max("kotlin", "java"))
+    val max = max("kotlin", "java")
+    println("max = $max")
 
     val helloWorld = StringBuilder("Hello World")
     ensureTrailingPeriod(helloWorld)
