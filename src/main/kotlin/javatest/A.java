@@ -1,16 +1,14 @@
-package base;
+package javatest;
 
 /**
  * Crete by dumingwei on 2019-08-23
  * Desc:
  */
-public interface B {
+public interface A {
 
     void test();
 
     default void testAnother(int params) {
-
-        System.out.println("B testAnother");
+        System.out.println("A testAnother");
     }
-
 }

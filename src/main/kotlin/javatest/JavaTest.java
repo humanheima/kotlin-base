@@ -1,4 +1,4 @@
-package base;
+package javatest;
 
 /**
  * Created by dmw on 2018/11/15.
