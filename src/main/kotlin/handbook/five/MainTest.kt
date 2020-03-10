@@ -11,6 +11,15 @@ fun main(args: Array<String>) {
         .flatMap { it -> listOf(it, it + 1) }
     println(newList)
 
+    val mapList = listOf(5, 12, 8, 33)
+
+
+    val result = mapList.map {
+        "$it Hello world\n"
+    }
+
+    println(result)
+
     //使用sequence
     sequenceOf(5, 12, 8, 33)
         .filter { it > 10 }

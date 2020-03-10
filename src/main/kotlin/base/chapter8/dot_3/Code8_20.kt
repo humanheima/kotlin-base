@@ -1,5 +1,7 @@
 package base.chapter8.dot_3
 
+import java.lang.StringBuilder
+
 /**
  * 用一个标签实现局部返回
  */
@@ -39,4 +41,17 @@ fun main() {
     //lookForEachAliceOne(people)
     //lookForEachAliceTwo(people)
     lookForEachAliceThree(people)
+
+    println(StringBuilder().apply sb@{
+
+        listOf(1, 2, 3).apply {
+            this@sb.append(this.toString())
+        }
+    })
+
+    val result = people.filter(fun(person): Boolean {
+        return person.age < 30
+    })
+    println(result)
+
 }

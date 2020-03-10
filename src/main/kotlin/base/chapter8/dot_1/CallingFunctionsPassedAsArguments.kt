@@ -22,8 +22,18 @@ fun processTheAnswer(f: (Int) -> Int) {
     println(f(42))
 }
 
+fun processString(f: (String) -> Unit) {
+    println(f("123"))
+}
+
 fun main() {
     twoAndThree { a, b -> a - b }
+    twoAndThree { a, b -> a * b }
+
+    processString { s ->
+        println(s)
+        println(s)
+    }
 
     println("ab1c".filter { it in 'a'..'z' })
 

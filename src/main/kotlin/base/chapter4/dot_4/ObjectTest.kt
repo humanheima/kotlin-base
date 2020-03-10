@@ -2,6 +2,7 @@ package base.chapter4.dot_4
 
 /**
  * Created by dumingwei on 2018/1/18 0018.
+ * 单例模式
  */
 //这种声明方式为 饿汉模式
 object Singleton {

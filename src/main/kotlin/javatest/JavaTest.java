@@ -1,5 +1,9 @@
 package javatest;
 
+import base.chapter8.dot_1.CallingFunctionsPassedAsArgumentsKt;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 /**
  * Created by dmw on 2018/11/15.
  * Desc:
@@ -17,6 +21,15 @@ public class JavaTest implements A, B {
 
         B b = new JavaTest();
         b.test();
+
+        new Thread(() -> {
+            //do nothing
+        }).start();
+
+        CallingFunctionsPassedAsArgumentsKt.processString(s -> {
+            System.out.println(s + "hello world");
+            return null;
+        });
     }
 
     @Override

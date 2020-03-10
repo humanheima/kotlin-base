@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     run { println(42) }// 运行Lambda中的代码
     val people = listOf(Person("Alice", 29), Person("Bob", 31))
     println(people.maxBy { it.age })
-    val names = people.joinToString(separator = " ", transform = { p: Person -> p.name })
+    val names = people.joinToString<Person>(separator = " ", transform = { p: Person -> p.name })
     val names1 = people.joinToString(" ") { p -> p.name }
     println(names)
 
