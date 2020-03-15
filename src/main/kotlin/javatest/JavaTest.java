@@ -34,7 +34,7 @@ public class JavaTest implements A, B {
 
     @Override
     public void test() {
-        System.out.println("test");
+        System.out.println("check");
     }
 
     @Override

@@ -2,7 +2,7 @@ package learncoroutine
 
 import kotlinx.coroutines.*
 
-fun main(args: Array<String>) = runBlocking<Unit> {
+fun mainTest() = runBlocking<Unit> {
     launch {
         // 默认继承 parent coroutine 的 CoroutineDispatcher，指定运行在 main 线程
         println("main runBlocking: I'm working in thread ${Thread.currentThread().name}")

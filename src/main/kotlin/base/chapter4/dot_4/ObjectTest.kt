@@ -20,7 +20,7 @@ class SingletonLazy private constructor() {
         val INSTANCE: SingletonLazy by lazy { SingletonLazy() }
     }
 
-    fun test() {
+    fun check() {
         println("hello SingletonLazy")
     }
 }
@@ -28,5 +28,5 @@ class SingletonLazy private constructor() {
 
 fun main(args: Array<String>) {
     Singleton.test()
-    //SingletonLazy.INSTANCE.test()
+    //SingletonLazy.INSTANCE.check()
 }

@@ -13,7 +13,7 @@ fun loadEmails(person1: Person1): List<Email> {
 }
 
 class Person1(val name: String) {
-    val emails by lazy { loadEmails(this) }
+    val emails: List<Email> by lazy { loadEmails(this) }
 }
 
 class LazyExample {
@@ -53,6 +53,6 @@ fun main(args: Array<String>) {
     val user = LazyUser(mapOf("name" to "jenny", "address" to "shanghai"))
     println(user.name)
     var str: String by DelegatesExt.notNullSingleValue<String>()
-    str="hello"
+    str = "hello"
 
 }

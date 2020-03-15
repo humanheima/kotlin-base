@@ -23,9 +23,9 @@ import java.lang.Exception
 
 fun main(args: Array<String>) {
 
-    val sourceString = "write something to test.txt"
+    val sourceString = "write something to check.txt"
     val sourceByte = sourceString.toByteArray()
-    val file = File("test.txt")
+    val file = File("check.txt")
     if (!file.exists()) {
         file.createNewFile()
     }

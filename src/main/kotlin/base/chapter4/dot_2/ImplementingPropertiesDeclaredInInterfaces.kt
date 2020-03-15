@@ -25,6 +25,6 @@ fun getFacebookName(accountId: Int): String {
 }
 
 fun main(args: Array<String>) {
-    println(PrivateUser("test@kotlinlang.org").nickname)
-    println(SubscribingUser("test@kotlinlang.org").nickname)
+    println(PrivateUser("check@kotlinlang.org").nickname)
+    println(SubscribingUser("check@kotlinlang.org").nickname)
 }

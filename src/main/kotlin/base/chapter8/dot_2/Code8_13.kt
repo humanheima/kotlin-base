@@ -21,12 +21,9 @@ inline fun <T> threadSafeMethod(lock: Lock, action: () -> T): T {
 
 fun main() {
 
-
-    arrayListOf<String>("hello", "world")
-        .map {
-            it + "haha"
-        }
-    foo(ReentrantLock())
+    foo(ReentrantLock(), 1)
+    foo(ReentrantLock(), 2)
+    foo(ReentrantLock(), 3)
 
     /*LockOwner(ReentrantLock()).runUnderLock {
         println("LockOwner")
@@ -35,17 +32,22 @@ fun main() {
     //fooTwo(ReentrantLock()) { println("foo Two action") }
 }
 
-fun foo(l: Lock) {
-    threadSafeMethod(l) {
-        println("Action one")
-    }
+fun foo(l: Lock, number: Int) {
 
     threadSafeMethod(l) {
+        println("Action one $number")
+    }
+    threadSafeMethod(l) {
+        println("Action one $number")
+    }
+
+    /*threadSafeMethod(l) {
         println("Action two")
     }
-
+*/
 }
 
+/*
 fun fooTwo(l: Lock, body: () -> Unit) {
     println("Before sync")
     threadSafeMethod(l, body)
@@ -58,3 +60,4 @@ class LockOwner(val lock: Lock) {
         threadSafeMethod(lock, body)
     }
 }
+*/

@@ -7,8 +7,12 @@ import kotlinx.coroutines.*
  * Desc: 协程基础
  *
  */
-fun mainBasic() {
-    fun6()
+fun main() {
+    //fun2()
+    //fun3()
+    //fun4()
+    fun5()
+    //fun6()
 }
 /*fun main() = runBlocking<Unit> {
     repeat(100_000) {
@@ -20,6 +24,9 @@ fun mainBasic() {
     }
 }*/
 
+/**
+ * Your first coroutine
+ */
 private fun fun1() {
     GlobalScope.launch {
         // 在后台启动一个新的协程并继续
@@ -37,6 +44,9 @@ private fun fun1() {
     Thread.sleep(2000L)
 }
 
+/**
+ * Bridging blocking and non-blocking worlds
+ */
 private fun fun2() {
     GlobalScope.launch {
         // 在后台启动一个新的协程并继续
@@ -67,6 +77,7 @@ private fun fun3() {
 
 
 /**
+ * 结构化并发 Structured concurrency
  * 这是一个外部协程
  * 外部协程（示例中的 runBlocking）直到在其作用域中启动的所有协程都执行完毕后才会结束。
  */
@@ -92,10 +103,9 @@ private suspend fun doWorld() {
 
 
 /**
- * 作用域构建器
+ * 作用域构建器，这个有点意思，得好好研究
  */
-private fun fun5() = runBlocking {
-    // this: CoroutineScope
+private fun fun5() = runBlocking { // this: CoroutineScope
     launch {
         delay(200L)
         println("Task from runBlocking")

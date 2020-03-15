@@ -160,7 +160,7 @@ fun CoroutineScope.asyncString(str: String, time: Long) = async {
 }
 
 fun mainx() = runBlocking<Unit> {
-    val chan = Channel<Deferred<String>>() // the channel for test
+    val chan = Channel<Deferred<String>>() // the channel for check
     launch {
         // launch printing coroutine
         for (s in switchMapDeferreds(chan))

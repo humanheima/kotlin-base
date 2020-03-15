@@ -157,7 +157,7 @@ private fun main8() = runBlocking(CoroutineName("main")) {
  * 同时指定调度器和名称
  */
 private fun main9() = runBlocking<Unit> {
-    launch(Dispatchers.Default + CoroutineName("test")) {
+    launch(Dispatchers.Default + CoroutineName("check")) {
         println("I'm working in thread ${Thread.currentThread().name}")
     }
 }
