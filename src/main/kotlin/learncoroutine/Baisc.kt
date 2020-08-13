@@ -7,12 +7,19 @@ import kotlinx.coroutines.*
  * Desc: 协程基础
  *
  */
-fun main() {
-    //fun2()
+fun main() = runBlocking {
+    //funX()
     //fun3()
     //fun4()
     fun5()
-    //fun6()
+}
+
+private suspend fun funX() {
+    val currentMillis = System.currentTimeMillis()
+    val retVal1 = downloadTask1()
+    val retVal2 = downloadTask2()
+    val retVal3 = downloadTask3()
+    println("All tasks downloaded! ${retVal1}, ${retVal2}, $retVal3 in ${(System.currentTimeMillis() - currentMillis) / 1000} seconds")
 }
 /*fun main() = runBlocking<Unit> {
     repeat(100_000) {
@@ -23,6 +30,23 @@ fun main() {
         }
     }
 }*/
+
+private suspend fun downloadTask1(): String {
+    kotlinx.coroutines.delay(5000);
+    return "Complete";
+}
+
+// Task 1 will take 8 seconds to complete download
+private suspend fun downloadTask2(): Int {
+    kotlinx.coroutines.delay(8000);
+    return 100;
+}
+
+// Task 1 will take 5 seconds to complete download
+private suspend fun downloadTask3(): Float {
+    kotlinx.coroutines.delay(5000);
+    return 4.0f;
+}
 
 /**
  * Your first coroutine
@@ -77,12 +101,10 @@ private fun fun3() {
 
 
 /**
- * 结构化并发 Structured concurrency
- * 这是一个外部协程
- * 外部协程（示例中的 runBlocking）直到在其作用域中启动的所有协程都执行完毕后才会结束。
+ * 结构化并发 Structured concurrency，就是说我们可以在一个协程内部启动多个子协程。
+ * 外部协程（示例中的 runBlocking）直到在其作用域中启动的所有子协程都执行完毕后才会结束。
  */
 private fun fun4() = runBlocking {
-
     /**
      * 这是一个内部协程
      */
@@ -104,25 +126,27 @@ private suspend fun doWorld() {
 
 /**
  * 作用域构建器，这个有点意思，得好好研究
+ *
+ * runBlocking会阻塞当前线程，coroutineScope不会阻塞当前线程
  */
 private fun fun5() = runBlocking { // this: CoroutineScope
     launch {
         delay(200L)
-        println("Task from runBlocking")
+        log("Task from runBlocking")
     }
 
     coroutineScope {
         // 创建一个新的协程作用域
         launch {
             delay(500L)
-            println("Task from nested launch")
+            log("Task from nested launch")
         }
 
         delay(100L)
-        println("Task from coroutine scope") // 这一行会在内嵌 launch 之前输出
+        log("Task from coroutine scope") // 这一行会在内嵌 launch 之前输出
     }
 
-    println("Coroutine scope is over") // 这一行在内嵌 launch 执行完毕后才输出
+    log("Coroutine scope is over") // 这一行在内嵌 launch 执行完毕后才输出
 }
 
 

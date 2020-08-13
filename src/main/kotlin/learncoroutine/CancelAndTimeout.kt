@@ -10,6 +10,20 @@ import kotlinx.coroutines.*
  *
  */
 
+fun main() = runBlocking {
+    //funX()
+    //fun3()
+    //fun4()
+    //fun1()
+    //fun2()
+    //fun3()
+    //fun4()
+    //fun5()
+    //fun6()
+    fun7()
+}
+
+
 private fun fun1() = runBlocking {
     val job = launch {
         repeat(1000) { i ->
@@ -95,6 +109,8 @@ private fun fun4() = runBlocking {
 
 /**
  * 运行不能取消的代码块
+ * 在极少数情况下，如果你需要在一个已经取消了的协程中挂起，你可以将响应的代码包裹在
+ * withContext(NonCancellable) {...}中
  */
 private fun fun5() = runBlocking {
     val job = launch {
@@ -107,7 +123,7 @@ private fun fun5() = runBlocking {
             withContext(NonCancellable) {
                 println("I'm running finally")
                 delay(1000L)
-                println("And I've just delayed for 1 sec because I'm non-cancellable")
+                println("And I've just delayed for 1 second because I'm non-cancellable")
             }
         }
     }
@@ -135,7 +151,7 @@ private fun fun7() = runBlocking {
             println("I'm sleeping $i ...")
             delay(500L)
         }
-
+        "Done"
     }
     println("Result is $result")
 }

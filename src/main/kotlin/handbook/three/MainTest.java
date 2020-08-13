@@ -11,3 +11,5 @@ public class MainTest {
         Student.changeMarks("C");
     }
 }
+
+

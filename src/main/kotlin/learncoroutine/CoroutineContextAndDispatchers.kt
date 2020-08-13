@@ -1,6 +1,10 @@
 package learncoroutine
 
 import kotlinx.coroutines.*
+import java.util.concurrent.Executors
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.ContinuationInterceptor
+import kotlin.coroutines.CoroutineContext
 
 /**
  * 协程上下文和调度器
@@ -117,7 +121,7 @@ private fun main6() = runBlocking<Unit> {
  * 一个父协程总是等待所有的子协程结束。父协程不必显式的跟踪所有启动的子协程。
  * 也不必在最后调用Job.join()等待所有的子协程结束。（这句话不理解，不需要调用Job.join吗）
  */
- private fun main7() = runBlocking<Unit> {
+private fun main7() = runBlocking<Unit> {
     // launch a coroutine to process some kind of incoming request
     val request = launch {
         repeat(3) { i ->
@@ -177,4 +181,56 @@ private fun main10() = runBlocking<Unit> {
     }
     job.join()
     println("Post-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+}
+
+
+suspend fun main() {
+
+    val mDispatcher = Executors.newSingleThreadExecutor { r -> Thread(r, "MyThread") }.asCoroutineDispatcher()
+
+    GlobalScope.launch(mDispatcher) {
+        log(1)
+    }.join()
+    log(2)
+
+}
+
+suspend fun mainMyInterceptor() {
+
+    GlobalScope.launch(MyContinuationInterceptor()) {
+        log(1)
+        val job = async {
+            log(2)
+            delay(1000)
+            log(3)
+            "Hello"
+        }
+        log(4)
+        val result = job.await()
+        log("5. $result")
+    }.join()
+    log(6)
+
+}
+
+
+class MyContinuationInterceptor : ContinuationInterceptor {
+
+    override val key: CoroutineContext.Key<*>
+        get() = ContinuationInterceptor
+
+    override fun <T> interceptContinuation(continuation: Continuation<T>): Continuation<T> {
+        return MyContinuation(continuation)
+    }
+}
+
+class MyContinuation<T>(val continuation: Continuation<T>) : Continuation<T> {
+
+    override val context: CoroutineContext
+        get() = continuation.context
+
+    override fun resumeWith(result: Result<T>) {
+        log("<MyContinuation> $result")
+        continuation.resumeWith(result)
+    }
 }

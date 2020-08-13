@@ -41,7 +41,7 @@ private fun main2() = runBlocking {
     joinAll(job, deferred)
 }
 
-private fun main3() = runBlocking {
+private fun mai3() = runBlocking {
     val job = launch {
         val child = launch {
             try {
@@ -168,7 +168,7 @@ private fun main7() = runBlocking {
     }
 }
 
-private fun main8() = runBlocking {
+private fun main() = runBlocking {
     val handler = CoroutineExceptionHandler { _, exception ->
         println("Caught $exception")
     }

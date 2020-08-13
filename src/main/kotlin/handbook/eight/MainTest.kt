@@ -18,26 +18,50 @@ fun String.checkEmail(): Boolean {
 }
 
 fun main(args: Array<String>) {
-    //println("fengzhizi715@126.com".checkEmail())
+    println("fengzhizi715@126.com".checkEmail())
     var base = Base()
     var child = Child()
 
     executeFoo(base)
     executeFoo(child)
 
+    base.bar("Bar hello world")
+
     val result = "hello".apply {
         println(this + " world")
         this + "world"
     }
     println(result)
+
+    val list = arrayListOf(1, 2, 3)
+    println("lastIndex = ${list.lastIndex}")
+
+    println("no:${MyClass.no}")
+    MyClass.foo()
 }
+
+
+val List<*>.lastIndex: Int
+    get() = size - 1
 
 open class Base
 
 class Child : Base()
 
+fun Base.bar(params: String) = println(params) // 父类的扩展函数 foo
 fun Base.foo() = println("this is from base") // 父类的扩展函数 foo
 
 fun Child.foo() = println("this is from child") // 子类的扩展函数 foo
 
 fun executeFoo(base: Base) = base.foo()
+
+class MyClass {
+    companion object {}  // 将被称为 "Companion"
+}
+
+fun MyClass.Companion.foo() {
+    println("伴随对象的扩展函数")
+}
+
+val MyClass.Companion.no: Int
+    get() = 10

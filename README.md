@@ -37,4 +37,6 @@ learncoroutine包下是协程相关知识。
 一个协变类是一个范型类（我们以Producer<T>为例），对这种类来说，下面的描述是成立的：如果A是B的子类型，那么Producer<A>就是Producer<B>
 的子类型。我们说子类型化被保留了。例如，Producer<Cat>是Producer<Animal>的子类型，因为Cat是Animal的子类型。
 
+* crack包下面是破解协程系列文章的部分代码
+
 
