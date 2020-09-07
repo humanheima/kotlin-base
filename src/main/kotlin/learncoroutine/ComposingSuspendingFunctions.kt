@@ -31,6 +31,8 @@ private fun main2() = runBlocking {
         val one = async { doSomethingUsefulOne() }
         val two = async { doSomethingUsefulTwo() }
         println("The answer is ${one.await() + two.await()}")
+
+        lazy {  }
     }
     println("Completed in $time ms")
 }
@@ -39,7 +41,7 @@ private fun main2() = runBlocking {
  * 惰性启动的async
  * 当只有调用start或者调用返回的Deferred对象的await方法才会启动协程
  */
-fun main() = runBlocking {
+private fun main() = runBlocking {
 
     val time = measureTimeMillis {
         //默认挂起函数会顺序执行

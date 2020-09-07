@@ -92,7 +92,7 @@ private fun main5() = runBlocking<Unit> {
 /**
  * 子协程
  */
-private fun main6() = runBlocking<Unit> {
+private fun main6() = runBlocking {
     // launch a coroutine to process some kind of incoming request
     val request = launch {
         // it spawns two other jobs, one with GlobalScope
@@ -119,7 +119,7 @@ private fun main6() = runBlocking<Unit> {
 /**
  * 父协程的责任
  * 一个父协程总是等待所有的子协程结束。父协程不必显式的跟踪所有启动的子协程。
- * 也不必在最后调用Job.join()等待所有的子协程结束。（这句话不理解，不需要调用Job.join吗）
+ * 也不必在最后调用Job.join()等待所有的子协程结束。（这句话不理解，不需要调用Job.join吗，不需要，默认就是等待所有的子协程执行完毕）
  */
 private fun main7() = runBlocking<Unit> {
     // launch a coroutine to process some kind of incoming request
@@ -161,7 +161,7 @@ private fun main8() = runBlocking(CoroutineName("main")) {
  * 同时指定调度器和名称
  */
 private fun main9() = runBlocking<Unit> {
-    launch(Dispatchers.Default + CoroutineName("check")) {
+    launch(Dispatchers.Default + CoroutineName("test")) {
         println("I'm working in thread ${Thread.currentThread().name}")
     }
 }
@@ -171,20 +171,24 @@ private fun main9() = runBlocking<Unit> {
  */
 val threadLocal = ThreadLocal<String?>() // declare thread-local variable
 
-private fun main10() = runBlocking<Unit> {
+/**
+ *
+ */
+fun main() = runBlocking<Unit> {
     threadLocal.set("main")
-    println("Pre-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+    println("Pre-main, current thread: ${Thread.currentThread().name}, thread local value: '${threadLocal.get()}'")
     val job = launch(Dispatchers.Default + threadLocal.asContextElement(value = "launch")) {
-        println("Launch start, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+        println("Launch start, current thread: ${Thread.currentThread().name}, thread local value: '${threadLocal.get()}'")
         yield()
-        println("After yield, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+
+        println("After yield, current thread: ${Thread.currentThread().name}, thread local value: '${threadLocal.get()}'")
     }
     job.join()
-    println("Post-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'")
+    println("Post-main, current thread: ${Thread.currentThread().name}, thread local value: '${threadLocal.get()}'")
 }
 
 
-suspend fun main() {
+suspend fun main111() {
 
     val mDispatcher = Executors.newSingleThreadExecutor { r -> Thread(r, "MyThread") }.asCoroutineDispatcher()
 

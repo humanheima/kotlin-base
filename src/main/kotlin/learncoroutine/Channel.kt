@@ -23,7 +23,6 @@ private fun main1() = runBlocking {
 }
 
 private fun main2() = runBlocking {
-    //sampleStart
     val channel = Channel<Int>()
     launch {
         for (x in 1..5) channel.send(x * x)
@@ -32,28 +31,27 @@ private fun main2() = runBlocking {
     // here we print received values using `for` loop (until the channel is closed)
     for (y in channel) println(y)
     println("Done!")
-//sampleEnd
 }
 
+//#创建通道生产者
 fun CoroutineScope.produceSquares(): ReceiveChannel<Int> = produce {
     for (x in 1..5) send(x * x)
 }
 
 private fun main3() = runBlocking {
-    //sampleStart
     val squares = produceSquares()
     squares.consumeEach { println(it) }
     println("Done!")
 }
 
 private fun main4() = runBlocking {
-    //sampleStart
     val numbers = produceNumbers() // produces integers from 1 and on
     val squares = square(numbers) // squares integers
-    for (i in 1..5) println(squares.receive()) // print first five
+    repeat(5) {
+        println(squares.receive())
+    }
     println("Done!") // we are done
     coroutineContext.cancelChildren() // cancel children coroutines
-//sampleEnd
 }
 
 fun CoroutineScope.produceNumbers() = produce<Int> {
@@ -65,16 +63,14 @@ fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = p
     for (x in numbers) send(x * x)
 }
 
-private fun main5() = runBlocking {
-    //sampleStart
+private fun main() = runBlocking {
     var cur = numbersFrom(2)
     for (i in 1..10) {
         val prime = cur.receive()
-        println(prime)
+        println("prime = $prime")
         cur = filter(cur, prime)
     }
     coroutineContext.cancelChildren() // cancel all children to let main finish
-//sampleEnd
 }
 
 /**
@@ -86,8 +82,12 @@ fun CoroutineScope.numbersFrom(start: Int) = produce<Int> {
 }
 
 fun CoroutineScope.filter(numbers: ReceiveChannel<Int>, prime: Int) = produce<Int> {
-    println("in filter$prime")
-    for (x in numbers) if (x % prime != 0) send(x)
+    for (x in numbers) {
+        println("in filter$prime")
+        if (x % prime != 0) {
+            send(x)
+        }
+    }
 }
 
 
