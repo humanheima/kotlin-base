@@ -174,7 +174,7 @@ val threadLocal = ThreadLocal<String?>() // declare thread-local variable
 /**
  *
  */
-fun main() = runBlocking<Unit> {
+fun mainxxxxx() = runBlocking<Unit> {
     threadLocal.set("main")
     println("Pre-main, current thread: ${Thread.currentThread().name}, thread local value: '${threadLocal.get()}'")
     val job = launch(Dispatchers.Default + threadLocal.asContextElement(value = "launch")) {

@@ -63,11 +63,11 @@ fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = p
     for (x in numbers) send(x * x)
 }
 
-private fun main() = runBlocking {
+private fun main5() = runBlocking {
     var cur = numbersFrom(2)
-    for (i in 1..10) {
+    repeat(10) {
         val prime = cur.receive()
-        println("prime = $prime")
+        println(prime)
         cur = filter(cur, prime)
     }
     coroutineContext.cancelChildren() // cancel all children to let main finish
@@ -83,21 +83,18 @@ fun CoroutineScope.numbersFrom(start: Int) = produce<Int> {
 
 fun CoroutineScope.filter(numbers: ReceiveChannel<Int>, prime: Int) = produce<Int> {
     for (x in numbers) {
-        println("in filter$prime")
         if (x % prime != 0) {
             send(x)
         }
     }
 }
 
-
+// Fan-out
 private fun main6() = runBlocking<Unit> {
-    //sampleStart
     val producer = produceNumbersDelay()
     repeat(5) { launchProcessor(it, producer) }
     delay(950)
     producer.cancel() // cancel producer coroutine and thus kill them all
-//sampleEnd
 }
 
 fun CoroutineScope.produceNumbersDelay() = produce<Int> {
@@ -114,8 +111,8 @@ fun CoroutineScope.launchProcessor(id: Int, channel: ReceiveChannel<Int>) = laun
     }
 }
 
+// Fan-in
 private fun main7() = runBlocking {
-    //sampleStart
     val channel = Channel<String>()
     launch { sendString(channel, "foo", 200L) }
     launch { sendString(channel, "BAR!", 500L) }
@@ -124,7 +121,6 @@ private fun main7() = runBlocking {
         println(channel.receive())
     }
     coroutineContext.cancelChildren() // cancel all children to let main finish
-//sampleEnd
 }
 
 suspend fun sendString(channel: SendChannel<String>, s: String, time: Long) {
@@ -134,27 +130,27 @@ suspend fun sendString(channel: SendChannel<String>, s: String, time: Long) {
     }
 }
 
+// Buffered channels
 private fun main8() = runBlocking<Unit> {
-    //sampleStart
     val channel = Channel<Int>(4) // create buffered channel
     val sender = launch {
         // launch sender coroutine
         repeat(10) {
             println("Sending $it") // print before sending each element
             channel.send(it) // will suspend when buffer is full
+            println("Send $it") //注释，这里只会输出3，不会输出4，也就是说发送第5个值挂起了，要等待消费者消费，才能继续发送
+
         }
     }
     // don't receive anything... just wait....
     delay(1000)
     sender.cancel() // cancel sender coroutine
-//sampleEnd
 }
 
-//sampleStart
 data class Ball(var hits: Int)
 
 /**
- * 通道是公平的,发送和接收操作是 公平的 并且尊重调用它们的多个协程。它们遵守先进先出原则。
+ * 通道的发送和接收操作是公平的，也就是说从多个协程调用是遵循先进先出原则的。
  */
 private fun main9() = runBlocking {
     val table = Channel<Ball>() // a shared table
@@ -174,7 +170,8 @@ suspend fun player(name: String, table: Channel<Ball>) {
     }
 }
 
-private fun main10() = runBlocking<Unit> {
+//# 计时器通道
+/*private fun main() = runBlocking<Unit> {
     val tickerChannel = ticker(delayMillis = 100, initialDelayMillis = 0) // create ticker channel
     var nextElement = withTimeoutOrNull(1) { tickerChannel.receive() }
     println("Initial element is available immediately: $nextElement") // initial delay hasn't passed yet
@@ -183,7 +180,7 @@ private fun main10() = runBlocking<Unit> {
     println("Next element is not ready in 50 ms: $nextElement")
 
     nextElement = withTimeoutOrNull(60) { tickerChannel.receive() }
-    println("Next element is ready in 100 ms: $nextElement")
+    println("Next element is ready in 110 ms: $nextElement")
 
     // Emulate large consumption delays
     println("Consumer pauses for 150ms")
@@ -192,9 +189,9 @@ private fun main10() = runBlocking<Unit> {
     nextElement = withTimeoutOrNull(1) { tickerChannel.receive() }
     println("Next element is available immediately after large consumer delay: $nextElement")
     // Note that the pause between `receive` calls is taken into account and next element arrives faster
-    nextElement = withTimeoutOrNull(60) { tickerChannel.receive() }
+    nextElement = withTimeoutOrNull(50) { tickerChannel.receive() }
     println("Next element is ready in 50ms after consumer pause in 150ms: $nextElement")
 
     tickerChannel.cancel() // indicate that no more elements are needed
-}
+}*/
 

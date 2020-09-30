@@ -7,12 +7,6 @@ import kotlinx.coroutines.*
  * Desc: 协程基础
  *
  */
-fun main() = runBlocking {
-    //funX()
-    //fun3()
-    //fun4()
-    fun5()
-}
 
 private suspend fun funX() {
     val currentMillis = System.currentTimeMillis()
@@ -116,7 +110,9 @@ private fun fun4() = runBlocking {
 }
 
 /**
- * 挂起函数
+ * 提取一个函数，挂起函数
+ *
+ * 
  */
 private suspend fun doWorld() {
     delay(1000L)
@@ -129,7 +125,7 @@ private suspend fun doWorld() {
  *
  * runBlocking会阻塞当前线程，coroutineScope不会阻塞当前线程
  */
-private fun fun5() = runBlocking { // this: CoroutineScope
+private fun main() = runBlocking { // this: CoroutineScope
     launch {
         delay(200L)
         log("Task from runBlocking")

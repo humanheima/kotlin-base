@@ -4,12 +4,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.system.measureTimeMillis
 
 /**
  * 并发同步问题
  */
-suspend fun CoroutineScope.massiveRun(action: suspend () -> Unit) {
+/*suspend fun CoroutineScope.massiveRun(action: suspend () -> Unit) {
     val n = 100  // number of coroutines to launch
     val k = 1000 // times an action is repeated by each coroutine
     val time = measureTimeMillis {
@@ -21,20 +22,56 @@ suspend fun CoroutineScope.massiveRun(action: suspend () -> Unit) {
         jobs.forEach { it.join() }
     }
     println("Completed ${n * k} actions in $time ms")
+}*/
+
+suspend fun massiveRun(action: suspend () -> Unit) {
+    val n = 100  // number of coroutines to launch
+    val k = 1000 // times an action is repeated by each coroutine
+    val time = measureTimeMillis {
+        coroutineScope {
+            repeat(n) {
+                launch {
+                    repeat(k) {
+                        action()
+                    }
+                }
+            }
+        }
+    }
+    println("Completed ${n * k} actions in $time ms")
 }
 
 //加上注解也无法保证原子性,可以考虑使用AtomicInteger来解决
 @Volatile
 var counter = 0
 
-private fun main1() = runBlocking<Unit> {
-    //sampleStart
-    GlobalScope.massiveRun {
-        counter++
+private fun main0() = runBlocking<Unit> {
+//    GlobalScope.massiveRun {
+//        counter++
+//    }
+    withContext(Dispatchers.Default) {
+        massiveRun {
+            //注意，这行代码不是原子操作
+            counter++
+        }
     }
     println("Counter = $counter")
-//sampleEnd
 }
+
+
+val atomicCount = AtomicInteger()
+
+private fun main1() = runBlocking<Unit> {
+
+    withContext(Dispatchers.Default) {
+        massiveRun {
+            //注释1处
+            atomicCount.getAndIncrement()
+        }
+    }
+    println("Counter = ${atomicCount.get()}")
+}
+
 
 /**
  * 使用单线程
@@ -44,10 +81,20 @@ val counterContext = newSingleThreadContext("CounterContext")
 private fun main2() = runBlocking {
     withContext(Dispatchers.Default) {
         massiveRun {
-            // confine each increment to a single-threaded context
+            //注释1处，将所有的增加操作限制在单线程上下文中
             withContext(counterContext) {
                 counter++
             }
+        }
+    }
+    println("Counter = $counter")
+}
+
+private fun main3() = runBlocking {
+    //注释1处，将所有的操作都限制在单线程上下文中
+    withContext(counterContext) {
+        massiveRun {
+            counter++
         }
     }
     println("Counter = $counter")
@@ -59,7 +106,7 @@ val mutex = Mutex()
 /**
  * 使用锁互斥
  */
-private fun main3() = runBlocking {
+private fun main4() = runBlocking {
     withContext(Dispatchers.Default) {
         massiveRun {
             // protect each increment with lock
@@ -88,8 +135,7 @@ fun CoroutineScope.counterActor() = actor<CounterMsg> {
     }
 }
 
-//sampleStart
-fun main() = runBlocking<Unit> {
+/*fun main() = runBlocking<Unit> {
     val counter = counterActor() // create the actor
     withContext(Dispatchers.Default) {
         massiveRun {
@@ -101,4 +147,4 @@ fun main() = runBlocking<Unit> {
     counter.send(GetCounter(response))
     println("Counter = ${response.await()}")
     counter.close() // shutdown the actor
-}
+}*/

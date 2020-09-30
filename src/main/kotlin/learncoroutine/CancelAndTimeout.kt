@@ -14,13 +14,13 @@ fun main() = runBlocking {
     //funX()
     //fun3()
     //fun4()
-    //fun1()
+    fun1()
     //fun2()
     //fun3()
     //fun4()
     //fun5()
     //fun6()
-    fun7()
+    //fun7()
 }
 
 

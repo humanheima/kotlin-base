@@ -645,6 +645,7 @@ fun main() = runBlocking<Unit> {
         }
 }*/
 
+/*
 fun main() = runBlocking<Unit> {
     (1..5).asFlow()
         .cancellable()//注释1处
@@ -653,3 +654,4 @@ fun main() = runBlocking<Unit> {
             println(value)
         }
 }
+*/

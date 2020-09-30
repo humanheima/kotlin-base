@@ -118,7 +118,7 @@ fun CoroutineScope.asyncStringsList(): List<Deferred<String>> {
 /**
  * 选择延迟值
  */
-fun main() = runBlocking<Unit> {
+/*fun main() = runBlocking<Unit> {
     val list = asyncStringsList()
     val result = select<String> {
         list.withIndex().forEach { (index, deferred) ->
@@ -130,7 +130,7 @@ fun main() = runBlocking<Unit> {
     println(result)
     val countActive = list.count { it.isActive }
     println("$countActive coroutines are still active")
-}
+}*/
 
 fun CoroutineScope.switchMapDeferreds(input: ReceiveChannel<Deferred<String>>) = produce<String> {
     var current = input.receive() // start with first received deferred value

@@ -168,16 +168,22 @@ private fun main7() = runBlocking {
     }
 }
 
-private fun main() = runBlocking {
+private fun main() {
+    //注释1处，根协程的CoroutineExceptionHandler
     val handler = CoroutineExceptionHandler { _, exception ->
-        println("Caught $exception")
+        println("handler caught $exception")
     }
-    supervisorScope {
-        val child = launch(handler) {
+    //注释2处，子协程的CoroutineExceptionHandler
+    val childHandler = CoroutineExceptionHandler { _, exception ->
+        println("childHandler caught $exception")
+    }
+
+    GlobalScope.launch(handler) {
+        val child: Deferred<String> = async(childHandler) {
             println("Child throws an exception")
             throw AssertionError()
         }
-        println("Scope is completing")
+        child.await()
     }
-    println("Scope is completed")
+    Thread.sleep(3000)
 }
