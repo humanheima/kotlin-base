@@ -5,8 +5,12 @@ package base.chapter2.dot_4
  */
 fun main(args: Array<String>) {
     println(recognize('8'))
-    //dont't know why
-    println("Kotlin" in "Java".."Scale")
+
+    /**
+     * 查看反编译出来的代码等价于 "Java" <= "Kotlin" && "Kotlin" <= "Scala"
+     * 因为字符串是实现了Comparable的
+     */
+    println("Kotlin" in "Java".."Scala")
     println("kotlin" in setOf("JAVA", "Android"))
 }
 
