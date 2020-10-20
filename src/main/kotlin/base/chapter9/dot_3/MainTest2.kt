@@ -39,13 +39,30 @@ fun <T> copyData3(source: MutableList<T>, destination: MutableList<in T>) {
     }
 }
 
+val list: MutableList<Any?> = mutableListOf('a', 1, "qwe")
+
+val unkonownList: MutableList<*> = mutableListOf('a', 1, "qwe")
+
+
 fun main(args: Array<String>) {
 
+    list.add(3)
+    list.get(0)
+
+    println(unkonownList)
     val ints = mutableListOf(1, 2, 3)
     val anyItems = mutableListOf<Any>()
 
     copyData1(ints, anyItems)
 
+    copyData2(ints, anyItems)
+
+    copyData3(ints, anyItems)
     println(anyItems)
+
+    val list: MutableList< Number> = mutableListOf()
+    list.add(3)
+    list.add(3.2)
+
 
 }

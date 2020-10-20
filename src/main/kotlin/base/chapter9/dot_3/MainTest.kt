@@ -6,6 +6,12 @@ package base.chapter9.dot_3
  *
  */
 
+
+interface Producer<out T> {
+
+    fun produce(): T
+}
+
 fun printContents(list: List<Any>) {
     println(list.joinToString())
 }
@@ -14,50 +20,24 @@ fun addAnswer(list: MutableList<Any>) {
     list.add(42)
 }
 
+fun enumerateCats(f: (Cat) -> Number) {
 
-open class Animal {
-
-    fun fead() {
-        println("喂养小动物")
-    }
 }
 
-class Herd<out T : Animal> {
-
-    val list = listOf<T>()
-
-    val size: Int get() = list.size
-
-    operator fun get(i: Int): T {
-        return list[i]
-    }
+fun Animal.getIndex(): Int {
+    return 0
 }
 
-fun feedAll(animals: Herd<Animal>) {
-
-    for (i in 0 until animals.size) {
-        animals[i].fead()
-    }
-}
-
-class Cat : Animal() {
-
-    fun cleanLitter() {
-
-    }
-}
-
-fun takeCatofCates(cats: Herd<Cat>) {
-
-    for (i in 0 until cats.size) {
-        feedAll(cats)
-    }
-}
 
 fun main() {
+
+    enumerateCats(Animal::getIndex)
     printContents(listOf("abc", "bac"))
 
-    val list: MutableList<String> = mutableListOf("abc", "bac")
+    val list: MutableList<String> = mutableListOf("abc", "bacd")
+    //addAnswer(list)
+    //注释2处，输出长度最长的字符串
     println(list.maxBy { it.length })
+
 
 }

@@ -30,12 +30,18 @@ import java.lang.StringBuilder
 /**
  * 使用匿名函数
  */
-/*fun lookForEachAliceThree(people: List<Person>) {
+fun lookForEachAliceThree(people: List<Person>) {
     people.forEach(fun(person) {
         if (person.name == "Alice") return
         println("${person.name} is not Alice")
     })
-}*/
+}
+
+fun lookForEachAlicefour(people: List<Person>) {
+    people.filter(fun(person): Boolean {
+        return person.age < 30
+    })
+}
 
 /*fun labelTest1() {
     loop@ for (i in 1..100) {
@@ -101,10 +107,48 @@ fun foo5() {
     println(" done with nested loop $result")
 }
 
+/*
+val b = { age: Int ->
+    String
+    "result = $age"
+}
+*/
+
+fun bFunction(param: Int): String {
+    return "bFunction $param"
+}
+
+val dFunction = ::bFunction
+
+fun myHighMethod(method: (Int) -> String) {
+
+    println(method(1))
+}
+
+val bxxx: (Int) -> String = {
+    it.toString()
+}
+
 fun main() {
+
+    val d = (::bFunction)
+
+    val e = d
+
+    println(bFunction(1))
+    println(d(2))
+    println(e(3))
+
+    myHighMethod(d)
+
+    myHighMethod(dFunction)
+
     //lookForEachAliceOne(people)
     //lookForEachAliceTwo(people)
-    //lookForEachAliceThree(people)
+    lookForEachAliceThree(people)
+
+
+    //val people:List<Person> = lookForEachAlicefour(people)
 
     /*println(StringBuilder().apply sb@{
 
@@ -125,8 +169,8 @@ fun main() {
     //foo3()
 
     //foo4()
-    foo5()
+    //foo5()
 
-    println(System.currentTimeMillis() + 86400000 * 8 + 60000)
+    //println(System.currentTimeMillis() + 86400000 * 8 + 60000)
 
 }

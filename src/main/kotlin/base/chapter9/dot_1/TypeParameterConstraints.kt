@@ -18,9 +18,24 @@ fun <T> ensureTrailingPeriod(seq: T) where T : CharSequence, T : Appendable {
         seq.append('.')
 }
 
+class Processor<T> where T : CharSequence, T : Appendable {
+
+    lateinit var t: T
+    fun process(value: T) {
+        t = value
+        t.append('c')
+        value.hashCode()
+    }
+}
+
 fun main(args: Array<String>) {
     val max = max("kotlin", "java")
     println("max = $max")
+
+    val processor: Processor<StringBuilder> = Processor()
+    processor.process(StringBuilder())
+    "java".substring(3)
+    val list = listOf<String>()
 
     val helloWorld = StringBuilder("Hello World")
     ensureTrailingPeriod(helloWorld)

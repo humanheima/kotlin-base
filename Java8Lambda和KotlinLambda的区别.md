@@ -73,7 +73,22 @@ setKtOnClickListener(object : KtOnClickListener {
 
 ```
 
-注释1处完整写法，并没有简化写法。这是因为Kotlin中其实已经不需要函数式接口了，直接用lambda表达式代替就行。所以Kotlin索性就不支持函数式接口了。但是当和Java交互的时候，Kotlin是支持这种用法的，当你的函数参数是Java的函数式接口的时候，依然可以使用Lambda来写参数。这可以理解为Kotlin对Java的特殊支持。
+
+注释1处完整写法，并没有简化写法。
+
+Kotlin1.4已经支持了函数式接口。
+```kotlin
+fun interface IntPredicate {
+    fun accept(i: Int): Boolean
+}
+
+val isEven = IntPredicate { it % 2 == 0 }
+
+fun main() { 
+    println("Is 7 even? - ${isEven.accept(7)}")
+}
+```
+这是因为Kotlin中其实已经不需要函数式接口了，直接用lambda表达式代替就行。所以Kotlin索性就不支持函数式接口了。但是当和Java交互的时候，Kotlin是支持这种用法的，当你的函数参数是Java的函数式接口的时候，依然可以使用Lambda来写参数。这可以理解为Kotlin对Java的特殊支持。
 
 
 
