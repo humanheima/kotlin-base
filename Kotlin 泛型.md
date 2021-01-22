@@ -2,7 +2,7 @@
 
 ### 声明泛型类
 
-和Java一样，Kotlin通过在类名称后面加上一对尖括号，并把 **类型参数** 放在尖括号内来声明泛型类和泛型接口。
+和Java一样，Kotlin通过在类名称后面加上一对尖括号，并把**类型参数**放在尖括号内来声明泛型类和泛型接口。
 
 ```kotlin
 interface List<T> {
@@ -24,7 +24,7 @@ fun <T> sum(t: T) {
 
 #### 上界约束
 
-如果你把一个类型指定为泛型 **类型形参** 的上界约束，在泛型类型具体的初始化中，其对应的类型实参就必须是这个具体类型或者它的子类型。
+如果你把一个类型指定为泛型**类型形参**的上界约束，在泛型类型具体的初始化中，其对应的类型实参就必须是这个具体类型或者它的子类型。
 
 在Kotlin中声明带泛型上限的类和方法
 
@@ -51,7 +51,7 @@ public <T extends Number> void test(T num) {
 }
 ```
 
-传递T的类型实参必须是 Number 或者 Number 的子类。
+传递T的类型实参必须是Number或者Number的子类。
 
 
 为类型参数指定多个约束的语法
@@ -111,15 +111,16 @@ inline fun <reified T> isAReified(value: Any): Boolean {
 }
 ```
 
-**reified** 声明了类型参数不会在运行时被擦除(实化类型参数)。
+**reified**声明了类型参数不会在运行时被擦除(实化类型参数)。
 
 
 使用
 
+```kotlin
+println(isAReified<String>("abc"))//true
+println(isAReified<String>(123))//false
 ```
-isAReified<String>("abc")//true
-isAReified<String>(123)//false
-```
+
 
 实化类型参数一个有意义的例子。下面是Kotlin库函数 `filterIsInstance` 方法的简化版本。
 
@@ -145,9 +146,9 @@ println(items.filterIsInstance<String>())
 
 通过指定`String`作为函数的类型实参，表明只对字符串感兴趣。因此函数的返回类型是 `List<String>`。在这种情况下，类型实参在运行时是已知的，函数 `filterIsInstance` 可以检查列表中的值是不是类型实参类型的实例。
 
-**为什么实化只对内联函数有效**？因为编译器把实现内联函数的字节码插入到每一次调用发生的地方。生成的字节码引用了具体类，而不是类型参数，它不会被运行时发生的类型参数擦除影响。
+**为什么实化只对内联函数有效**？因为编译器把实现内联函数的字节码插入到每一次调用发生的地方。生成的字节码引用了具体类，而不是类型参数，它不会被运行时发生的类型擦除影响。
 
-**注意**：带 **reified**类型参数的内联函数不能再Java代码中调用。
+**注意**：带**reified**类型参数的内联函数不能在Java代码中调用。
 
 看一个在Android中的例子，使用实化类型参数替代类引用。
 
@@ -185,7 +186,7 @@ startAct<MainActivity>()
 
 ### 泛型的变型
 
-**变型**的概念描述了拥有相同基础类型和不同类型实参(泛型)类型直接是如何关联的：例如`List<String>` 和 `List<Any>` 之间是如何关联。
+**变型**的概念描述了拥有相同基础类型和不同类型实参(泛型)类型直接是如何关联的：例如`List<String>`和`List<Any>`之间是如何关联。
 
 先看一个例子
 
@@ -273,7 +274,8 @@ fun takeCatOfCats(cats: Herd<Cat>) {
 在类成员的声明中类型参数的使用可以分为 `in` 位置和 `out` 位置。考虑这样类，它声明了一个类型参数 T 并包含了一个使用 T 的函数。如果函数是把 T 当成返
 回类型，我们说它在 `out` 位置。这种情况下，该函数生产类型为 T 的值。如果 T 用作函数参数的类型，它就在 `in` 位置。这样的函数消费类型为 T 的值，如下图所示：
 
-![](in_out_position.png)
+![in_out_position.png](https://upload-images.jianshu.io/upload_images/3611193-b480d647d5a46927.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 >对于Kotlin而言，可以这么说： Producer out，Consumer in。
 
@@ -387,7 +389,7 @@ public static void main(String[] args) {
 
 ### 使用点变型：在类型出现的地方指定变型
 
-先说一下**声明点变型**：在类声明的时候指定变型修饰符。这些修饰符会应用到所有类被使用的地方。**在声明时一次性制定变型让代码变得简洁和优雅的多。** 
+先说一下**声明点变型**：在类声明的时候指定变型修饰符。这些修饰符会应用到所有类被使用的地方。**在声明时一次性指定变型让代码变得简洁和优雅的多。** 
 
 Kotlin中声明点变型
 

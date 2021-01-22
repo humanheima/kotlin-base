@@ -33,7 +33,7 @@ fun <T> copyData2(source: MutableList<out T>, destination: MutableList<T>) {
 /**
  *  MutableList<in T> 对应到 Java的 MutableList<? super T>
  */
-fun <T> copyData3(source: MutableList<T>, destination: MutableList<in T>) {
+fun <T> copyData3(source: MutableList<out T>, destination: MutableList<in T>) {
     for (item in source) {
         destination.add(item)
     }

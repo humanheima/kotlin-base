@@ -8,7 +8,7 @@ package base.chapter9.dot_3
 
 open class Animal {
 
-    fun fead() {
+    fun feed() {
         println("喂养小动物")
     }
 }
@@ -41,12 +41,11 @@ class Herd<out T : Animal> {
 fun feedAll(animals: Herd<Animal>) {
 
     for (i in 0 until animals.size) {
-        animals[i].fead()
+        animals[i].feed()
     }
 }
 
 fun takeCatOfCats(cats: Herd<Cat>) {
-
     for (i in 0 until cats.size) {
         cats[i].cleanLitter()
     }
@@ -55,5 +54,29 @@ fun takeCatOfCats(cats: Herd<Cat>) {
 
 
 fun main() {
+    val cats: List<Cat> = listOf()
+    val animals: List<Animal> = cats
+}
+
+
+interface Transformer<T> {
+
+    fun transform(t: T): T
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
