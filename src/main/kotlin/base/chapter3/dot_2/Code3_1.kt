@@ -43,7 +43,7 @@ fun <T> joinToString(
 }
 
 /**
- * 带默认参数的方法
+ * 带默认参数的方法，为了能在Java中调用，需要使用 @JvmOverloads 注解
  */
 @JvmOverloads
 fun <T> joinToStringWithDefaultArgs(

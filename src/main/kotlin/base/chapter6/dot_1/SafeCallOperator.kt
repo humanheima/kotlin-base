@@ -22,7 +22,7 @@ fun managerName(employee: Employee): String? {
 }
 
 fun printAllCaps(s: String?) {
-    val allCaps: String? = s?.toUpperCase()
+    val allCaps: String = s?.toUpperCase()?:return
     println(allCaps)
 }
 
