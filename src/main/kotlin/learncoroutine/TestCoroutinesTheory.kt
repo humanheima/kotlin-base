@@ -8,15 +8,19 @@ import kotlinx.coroutines.launch
 /**
  *
  */
-
 fun main() {
+
     GlobalScope.launch {
-        println("开始执行")
-        delay(1000)
-        println("延迟1000毫秒后继续执行")
-        delay(2000)
-        println("延迟2000毫秒后继续执行")
+        println("Hello world! GlobalScope current Thread ${Thread.currentThread().name}")
+        //第一个挂起点
+        delay(100)
+        println("Hello world! GlobalScope first after delay current Thread ${Thread.currentThread().name}")
+        //第二个挂起点
+        delay(200)
+        println("Hello world! GlobalScope second after delay current Thread ${Thread.currentThread().name}")
     }
+    Thread.sleep(2000)
+    println("Hello world! current Thread  ${Thread.currentThread().name}")
 }
 
 
