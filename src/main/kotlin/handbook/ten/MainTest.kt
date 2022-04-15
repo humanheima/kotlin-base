@@ -1,7 +1,5 @@
 package handbook.ten
 
-import kotlin.reflect.KProperty
-
 /**
  * Created by dmw on 2019/1/7.
  * Desc:委托、运算符重载以及中缀表达式（一）
@@ -21,7 +19,6 @@ fun main(args: Array<String>) {
     student2.printMarks()
     student2.printTotals()
 }
-
 
 
 interface Marks {

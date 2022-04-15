@@ -32,6 +32,61 @@ public inline fun <T, R> T.let(block: (T) -> R): R {
 
 ```
 
+
+### run
+
+```kotlin
+/**
+ * 这个run是扩展函数
+ */
+fun testRun(): Unit {
+
+    "testRun".run {
+        println("this = $this")
+    }.let {
+        println(it)
+    }
+}
+```
+
+```kotlin
+/**
+ * 调用指定的功能[block]，并将  `this` 作为[block]的接受者并返回[block]的执行结果。
+ */
+@kotlin.internal.InlineOnly
+public inline fun <T, R> T.run(block: T.() -> R): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return block()
+}
+```
+
+```kotlin
+/**
+ * 另一个run，直接执行block，然后返回执行结果
+ */
+fun testAnotherRun(): Unit {
+    val date = run {
+        Date()
+    }
+    println("date = $date")
+}
+```
+
+```kotlin
+/**
+ * 调用指定的功能[block]，返回执行结果。
+ */
+@kotlin.internal.InlineOnly
+public inline fun <R> run(block: () -> R): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return block()
+}
+```
+
 ### apply
 
 ```kotlin

@@ -10,13 +10,13 @@ import java.util.*
  */
 fun main() {
     //testRepeat()
-    //testLet()
+    testLet()
     //testApply()
     //testRun()
     //testAlso()
     //takeIf()
     //takeUnless()
-    testWith()
+    //testWith()
 
 }
 
@@ -57,8 +57,6 @@ fun testRun(): Unit {
     }.let {
         println(it)
     }
-
-
 }
 
 /**
@@ -69,8 +67,6 @@ fun testAnotherRun(): Unit {
         Date()
     }
     println("date = $date")
-
-
 }
 
 /**
