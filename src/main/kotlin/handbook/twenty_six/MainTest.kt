@@ -10,12 +10,12 @@ import kotlinx.coroutines.*
 fun main(args: Array<String>) {
 
     //useDelay()
-    //useYield()
+    useYield()
     //useWithContext()
     //useCoroutineScope()
     //useDispatchers()
     //parentChildCoroutineScope()
-    parentChildCoroutineScope2()
+    //parentChildCoroutineScope2()
 
 }
 
@@ -207,7 +207,7 @@ private fun useYield() {
         println(0)
 
         job1.join()
-        job2.join()
+        //job2.join()
 
 
     }

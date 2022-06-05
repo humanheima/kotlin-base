@@ -41,7 +41,7 @@ dependencies {
     // include for server side
     //implementation "org.jetbrains.kotlinx:kotlinx-html-jvm:${kotlinx_html_version}"
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.2'
 }
 
 compileKotlin {
