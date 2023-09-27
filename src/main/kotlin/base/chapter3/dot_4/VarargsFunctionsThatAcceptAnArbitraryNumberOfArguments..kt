@@ -9,7 +9,7 @@ package base.chapter3.dot_4
 fun main(args: Array<String>) {
     val array: Array<String> = arrayOf("hello", "world")
     println(array.last())
-    println(array.max())
+    //println(array.max())
     val list = listOf("args:", *array)
     println(list)
 

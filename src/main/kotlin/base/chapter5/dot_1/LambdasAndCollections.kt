@@ -19,10 +19,10 @@ fun findTheOldest(people: List<Person>) {
 fun main(args: Array<String>) {
     val people = listOf(Person("Alice", 29), Person("Bob", 31))
     findTheOldest(people)
-    println(people.maxBy({ person: Person -> person.age }))
-    println(people.maxBy() { person: Person -> person.age })
-    println(people.maxBy { person: Person -> person.age })
-    println(people.maxBy { person -> person.age })
-    println(people.maxBy { it.age })
-    println(people.maxBy(Person::age))
+//    println(people.maxBy({ person: Person -> person.age }))
+//    println(people.maxBy() { person: Person -> person.age })
+//    println(people.maxBy { person: Person -> person.age })
+//    println(people.maxBy { person -> person.age })
+//    println(people.maxBy { it.age })
+//    println(people.maxBy(Person::age))
 }

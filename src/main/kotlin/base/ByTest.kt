@@ -66,7 +66,7 @@ class Delegate3 : ReadWriteProperty<Any, String> {
         return formattedString + "-" + formattedString.length
     }
 
-    @ExperimentalStdlibApi
+    //@ExperimentalStdlibApi
     override fun setValue(thisRef: Any, property: KProperty<*>, value: String) {
         if (thisRef is Person2) {
             thisRef.updateCount++

@@ -37,7 +37,7 @@ fun main() {
     val list: MutableList<String> = mutableListOf("abc", "bacd")
     //addAnswer(list)
     //注释2处，输出长度最长的字符串
-    println(list.maxBy { it.length })
+    //println(list.maxBy { it.length })
 
 
 }
